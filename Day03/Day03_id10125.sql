@@ -43,5 +43,21 @@ join (
     join Product p on o.pID = p.pID
 ) temp on temp.oID = o1.oID;
 
+select o1.oID, o1.oDate, TotalPrice from Order1 o1
+join (
+	select o.oID, SUM(p.pPrice * o.odQty) as TotalPrice from OrderDetail o
+    join Product p on o.pID = p.pID
+    group by o.oID
+) temp on temp.oID = o1.oID;
+
+SELECT 
+    o1.oID, o1.oDate, SUM(p.pPrice * o.odQty) AS TotalPrice
+FROM
+    Order1 o1
+        JOIN
+    OrderDetail o ON o.oID = o1.oID
+        JOIN
+    Product p ON p.pID = o.pID
+GROUP BY o1.oID;
 
 
