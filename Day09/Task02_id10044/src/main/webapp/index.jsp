@@ -13,11 +13,6 @@
 <body>
 <h1><%= "Hello World!" %>
 </h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
-<br><br><br>
-
-<a href="login">Test Login</a>
 
 <form action="login" method="post">
     <div class="login">
@@ -26,6 +21,17 @@
         <input type="password" name="password" placeholder="Password"/><br>
         <button type="submit">LOGIN</button>
     </div>
+</form>
+<br><br><br>
+<%--Task 3--%>
+<h2>Task 3</h2>
+<h3>Currency converter</h3>
+<form action="convert" method="get">
+    <p>Rate:</p>
+    <input type="text" name="rate" placeholder="0"> <br>
+    <p>USD:</p>
+    <input type="text" name="usd" placeholder="0">
+    <button type="submit">Convert</button>
 </form>
 </body>
 </html>
