@@ -23,6 +23,7 @@
     </div>
 </form>
 <br><br><br>
+
 <%--Task 3--%>
 <h2>Task 3</h2>
 <h3>Currency converter</h3>
@@ -32,6 +33,16 @@
     <p>USD:</p>
     <input type="text" name="usd" placeholder="0">
     <button type="submit">Convert</button>
+</form>
+<br><br><br>
+
+<%--Task 4--%>
+<h2>Task 4</h2>
+<h3>Dictionary</h3>
+<form action="translate" method="get">
+    <p>Search text:</p>
+    <input type="text" name="text"> <br>
+    <button type="submit">Search</button>
 </form>
 </body>
 </html>
