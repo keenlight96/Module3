@@ -18,7 +18,7 @@
         <thead>
         <tr>
             <th scope="col">Id</th>
-            <th scope="col">Name</th>
+            <th scope="col"><a href="/sortByName">Name</a></th>
             <th scope="col">Email</th>
             <th scope="col">Country</th>
             <th scope="col">Update</th>
@@ -36,10 +36,20 @@
                 <td><a class="btn btn-danger" href="/remove?id=${user.id}">Remove</a></td>
             </tr>
         </c:forEach>
+        <tr>
+            <td><a class="btn btn-success" href="/create">Create Form</a></td>
+            <td></td>
+            <form action="/searchByCountry" method="get">
+                <td><button type="submit" class="btn btn-warning">Search by country</button></td>
+                <td><input type="text" name="country"></td>
+            </form>
+            <td></td>
+            <td></td>
+        </tr>
         </tbody>
     </table>
 
-    <a class="btn btn-success" href="/create">Create Form</a>
+
 </div>
 </body>
 </html>

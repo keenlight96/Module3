@@ -17,9 +17,11 @@ public class UserDAO {
 
     private static final String SELECT_ALL_USERS = "select * from users";
     private static final String SELECT_USER = "select * from users where id = ?";
+    private static final String SELECT_USER_BY_COUNTRY = "select * from users where country = ?";
     private static final String INSERT_USER_SQL = "insert into users(name,email,country) values(?,?,?)";
     private static final String UPDATE_USER_SQL = "update users set name = ?, email = ?, country = ? where id = ?";
     private static final String DELETE_USER_SQL = "delete from users where id = ?";
+    private static final String SORT_USERS_BY_NAME = "select * from users order by name";
 
     public Connection getConnection() {
         Connection connection = null;
@@ -78,11 +80,36 @@ public class UserDAO {
             String name = resultSet.getString("name");
             String email = resultSet.getString("email");
             String country = resultSet.getString("country");
-            user = new User(id, name, email, country);
+
+            user.setId(id);
+            user.setName(name);
+            user.setEmail(email);
+            user.setCountry(country);
         } catch (Exception e){
             e.printStackTrace();
         }
         return user;
+    }
+
+    public List<User> selectUsersByCountry (String country) {
+        List<User> users = new ArrayList<>();
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_COUNTRY);
+            preparedStatement.setString(1,country);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+             while (resultSet.next()) {
+                 int id = resultSet.getInt("id");
+                 String name = resultSet.getString("name");
+                 String email = resultSet.getString("email");
+                 User user = new User(id, name, email, country);
+                 users.add(user);
+             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
     public void updateUser(User user) {
@@ -110,6 +137,28 @@ public class UserDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public List<User> sortByName() {
+        List<User> users = new ArrayList<>();
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SORT_USERS_BY_NAME);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String email = resultSet.getString("email");
+                String country = resultSet.getString("country");
+
+                User user = new User(id, name, email, country);
+                users.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
 }
