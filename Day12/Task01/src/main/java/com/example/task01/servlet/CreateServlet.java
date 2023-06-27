@@ -28,7 +28,7 @@ public class CreateServlet extends HttpServlet {
         String country = req.getParameter("country");
 
         User user = new User(0, name, email, country);
-        userDAO.insertUser(user);
+        userDAO.insertUserSP(user);
         resp.sendRedirect("/view");
     }
 }

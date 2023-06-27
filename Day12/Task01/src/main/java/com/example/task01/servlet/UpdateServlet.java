@@ -18,7 +18,7 @@ public class UpdateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-        User user = userDAO.selectUser(id);
+        User user = userDAO.selectUserSP(id);
         req.setAttribute("user", user);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/update.jsp");
         dispatcher.forward(req, resp);

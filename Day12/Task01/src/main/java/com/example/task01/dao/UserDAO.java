@@ -2,10 +2,7 @@ package com.example.task01.dao;
 
 import com.example.task01.model.User;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,6 +156,40 @@ public class UserDAO {
             e.printStackTrace();
         }
         return users;
+    }
+
+    public User selectUserSP(int id) {
+        User user = null;
+        String sql = "{call getUserById(?)}";
+        try {
+            Connection connection = getConnection();
+            CallableStatement callableStatement = connection.prepareCall(sql);
+            callableStatement.setInt(1, id);
+            ResultSet resultSet = callableStatement.executeQuery();
+
+            resultSet.next();
+            String name = resultSet.getString("name");
+            String email = resultSet.getString("email");
+            String country = resultSet.getString("country");
+            user = new User(id, name, email, country);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public void insertUserSP(User user) {
+        String sql = "{call insertUser(?,?,?)}";
+        try {
+            Connection connection = getConnection();
+            CallableStatement callableStatement = connection.prepareCall(sql);
+            callableStatement.setString(1, user.getName());
+            callableStatement.setString(2, user.getEmail());
+            callableStatement.setString(3, user.getCountry());
+            callableStatement.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
